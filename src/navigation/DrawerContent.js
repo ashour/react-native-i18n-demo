@@ -10,7 +10,10 @@ class DrawerContent extends React.Component {
     render() {
         return (
             <ScrollView>
-                <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
+                <SafeAreaView
+                    style={styles.container}
+                    forceInset={{ top: 'always', horizontal: 'never' }}
+                >
                     <Text style={styles.header}>Lists</Text>
 
                     <DrawerItems {...this.props} onItemPress={this.onItemPress} />
@@ -28,7 +31,8 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 18,
         fontWeight: '100',
-        marginStart: 8,
+        textAlign: 'left',
+        marginStart: 16,
         marginBottom: 8,
     }
 });

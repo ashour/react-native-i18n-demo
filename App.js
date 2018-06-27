@@ -1,4 +1,5 @@
 import React from 'react';
+import { AsyncStorage, I18nManager } from 'react-native';
 
 import Navigator from './src/navigation/Navigator';
 
@@ -6,6 +7,11 @@ export default class App extends React.Component {
     state = {
         lists: ['To-do', 'Foo'],
         activeList: 'To-do',
+    }
+
+    componentDidMount() {
+        // AsyncStorage.removeItem('To-do');
+        I18nManager.forceRTL(false);
     }
 
     // componentDidMount() {

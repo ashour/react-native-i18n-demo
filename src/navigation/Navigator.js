@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
 
-import List from '../screens/List';
-import AddTodo from '../screens/AddTodo';
 import DrawerContent from './DrawerContent';
+import ListScreen from '../screens/ListScreen';
+import AddTodoScreen from '../screens/AddTodoScreen';
 
 class Navigator extends Component {
     getListNavItems() {
         return this.props.lists.reduce((items, name) => {
-            const stackNavigator = createStackNavigator({ [name]: List, AddTodo });
+            const stackNavigator = createStackNavigator({ [name]: ListScreen, AddTodoScreen });
 
             return { ...items, [name]: stackNavigator };
         }, {});
