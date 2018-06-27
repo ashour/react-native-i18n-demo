@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Platform, ActivityIndicator, Text } from 'react-native';
+import {
+    Text,
+    View,
+    StyleSheet,
+    ActivityIndicator,
+} from 'react-native';
 
-import ListHeaderLeft from './ListHeaderLeft';
-import AddButton from '../components/AddButton';
 import ListRepo from '../repos/ListRepo';
+import ListHeaderStart from './ListHeaderStart';
+import AddButton from '../components/AddButton';
+import ListOfTodos from '../components/ListOfTodos';
 
 class ListScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: navigation.state.routeName,
-        headerLeft: <ListHeaderLeft navigation={navigation} />,
+        headerLeft: <ListHeaderStart navigation={navigation} />,
     });
 
     constructor(props) {
@@ -19,33 +25,59 @@ class ListScreen extends Component {
             isLoading: true,
         };
 
-        this.didFocusSubscription = props.navigation.addListener('willFocus', () => {
-            this.fetchTodos();
-        });
+        this.didFocusSubscription = props.navigation.addListener(
+            'willFocus',
+            () => this.loadTodosWithIndicator(),
+        );
     }
 
     componentWillUnmount() {
         this.didFocusSubscription.remove();
     }
 
-    async fetchTodos() {
-        const todos = await ListRepo
-            .with(this.props.navigation.state.routeName)
-            .getTodos();
+    async loadTodosWithIndicator() {
+        this.setState({ isLoading: true });
+
+        const listName = this.props.navigation.state.routeName;
+
+        const todos = await this.getKeyedTodosArray();
 
         this.setState({ todos, isLoading: false });
+    }
+
+    async getKeyedTodosArray() {
+        const listName = this.props.navigation.state.routeName;
+
+        return this.transformToKeyedArray(
+            await ListRepo.with(listName).getTodos()
+        );
+    }
+
+    refreshTodos = async () => {
+        const todos = await this.getKeyedTodosArray();
+
+        this.setState({ todos });
+    }
+
+    /**
+     * @param {Object<string, { id: string }} todos
+     * @return {Array<Object>}
+     */
+    transformToKeyedArray(todos) {
+        return Object.keys(todos)
+            .reverse().map(id => ({ ...todos[id], key: id }));
+    }
+
+    updateItem = async (item) => {
+        await ListRepo.updateTodo(item);
+
+        this.refreshTodos();
     }
 
     goToAddTodoScreen = () => {
         this.props.navigation.navigate('AddTodoScreen', {
             listName: this.props.navigation.state.routeName,
         });
-    }
-
-    renderTodos() {
-        return Object.keys(this.state.todos).map(id => (
-            <Text key={id}>{this.state.todos[id].text}</Text>
-        ));
     }
 
     render() {
@@ -55,7 +87,10 @@ class ListScreen extends Component {
                     ?
                     <ActivityIndicator />
                     :
-                    this.renderTodos()
+                    <ListOfTodos
+                        todos={this.state.todos}
+                        onItemUpdate={this.updateItem}
+                    />
                 }
 
                 <AddButton

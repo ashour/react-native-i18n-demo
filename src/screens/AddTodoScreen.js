@@ -14,7 +14,7 @@ import ListRepo from '../repos/ListRepo';
 
 class AddTodoScreen extends Component {
     static navigationOptions = {
-        title: "Add To-do",
+        title: "New To-do",
     }
 
     state = {
@@ -34,7 +34,7 @@ class AddTodoScreen extends Component {
 
         await ListRepo
             .with(this.props.navigation.state.params.listName)
-            .saveTodo({ text, due });
+            .addTodo({ text, due });
 
         this.props.navigation.goBack();
     }
@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
 
     label: {
         fontSize: 18,
+        color: '#333',
         marginBottom: 8,
     },
 
@@ -113,6 +114,7 @@ const styles = StyleSheet.create({
         width: '100%',
         fontSize: 18,
         paddingHorizontal: 8,
+        color: '#333',
         backgroundColor: 'white',
     },
 });

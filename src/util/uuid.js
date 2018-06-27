@@ -1,4 +1,3 @@
-
 // from https://gist.github.com/jed/982883
 export default function b(
     a                  // placeholder

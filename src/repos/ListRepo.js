@@ -19,7 +19,7 @@ const ListRepo = {
     },
 
     /**
-     * @returns {Object<string, {id: string, text: string, due: Date}>}
+     * @returns {Object<string, {id: string, text: string, isComplete: boolean due: Date}>}
      */
     async getTodos() {
         guardAgainstUnspecifiedList();
@@ -30,11 +30,20 @@ const ListRepo = {
     },
 
     /**
-     * @param {Object<string>} todo
+     * @param {Object<string, {id: string, text: string, isComplete: boolean due: Date}>} newTodos
+     */
+    async saveTodos(newTodos) {
+        guardAgainstUnspecifiedList();
+
+        await AsyncStorage.setItem(currentList, JSON.stringify(newTodos));
+    },
+
+    /**
+     * @param {Object} todo
      * @param {string} todo.text
      * @param {Date} todo.due
      */
-    async saveTodo(todo) {
+    async addTodo(todo) {
         guardAgainstUnspecifiedList();
 
         const todos = await this.getTodos();
@@ -43,10 +52,26 @@ const ListRepo = {
 
         const newTodos = {
             ...todos,
-            [id]: { id, ...todo },
+            [id]: { id, isComplete: false, ...todo },
         };
 
-        await AsyncStorage.setItem(currentList, JSON.stringify(newTodos));
+        this.saveTodos(newTodos);
+    },
+
+    /**
+     * @param {Object} todo
+     * @param {string} todo.text
+     * @param {Date} todo.due
+     * @param {boolean} todo.isComplete
+     */
+    async updateTodo(todo) {
+        guardAgainstUnspecifiedList();
+
+        const todos = await this.getTodos();
+
+        const newTodos = { ...todos, [todo.id]: todo };
+
+        this.saveTodos(newTodos);
     }
 };
 
