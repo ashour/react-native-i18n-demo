@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Text, Platform, TouchableOpacity, StyleSheet } from 'react-native';
 
+import i18n from '../services/i18n';
+
 class AddButton extends Component {
     static defaultProps = {
         style: {},
@@ -22,7 +24,10 @@ const styles = StyleSheet.create({
     addButton: {
         width: 50,
         height: 50,
-        paddingStart: 1,
+        ...i18n.select({
+            rtl: { paddingEnd: 1 },
+            ltr: { paddingStart: 1 },
+        }),
         paddingBottom: 3,
         alignItems: 'center',
         justifyContent: 'center',

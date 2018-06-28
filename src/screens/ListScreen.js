@@ -6,16 +6,19 @@ import {
     ActivityIndicator,
 } from 'react-native';
 
+import { t } from '../services/i18n';
 import ListRepo from '../repos/ListRepo';
 import ListHeaderStart from './ListHeaderStart';
 import AddButton from '../components/AddButton';
 import ListOfTodos from '../components/ListOfTodos';
 
 class ListScreen extends Component {
-    static navigationOptions = ({ navigation }) => ({
-        title: navigation.state.routeName,
-        headerLeft: <ListHeaderStart navigation={navigation} />,
-    });
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: t(`lists:${navigation.state.routeName}`),
+            headerLeft: <ListHeaderStart navigation={navigation} />,
+        };
+    };
 
     constructor(props) {
         super(props);
@@ -90,7 +93,7 @@ class ListScreen extends Component {
         if (this.state.todos.length === 0) {
             return (
                 <Text style={styles.emptyListText}>
-                    No to-dos in this list! Use the + button to add a to-do.
+                    {t('ListScreen:empty')}
                 </Text>
             );
         }

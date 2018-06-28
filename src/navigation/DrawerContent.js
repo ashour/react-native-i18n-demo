@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { ScrollView, Text, StyleSheet } from 'react-native';
 import { SafeAreaView, DrawerItems } from 'react-navigation';
 
-class DrawerContent extends React.Component {
+import { t } from '../services/i18n';
+
+class DrawerContent extends Component {
     onItemPress = ({ route }) => {
         this.props.navigation.navigate(route.key);
     }
@@ -14,7 +16,7 @@ class DrawerContent extends React.Component {
                     style={styles.container}
                     forceInset={{ top: 'always', horizontal: 'never' }}
                 >
-                    <Text style={styles.header}>Lists</Text>
+                    <Text style={styles.header}>{t('lists')}</Text>
 
                     <DrawerItems {...this.props} onItemPress={this.onItemPress} />
                 </SafeAreaView>

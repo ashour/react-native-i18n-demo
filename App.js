@@ -1,24 +1,58 @@
-import React from 'react';
-import { AsyncStorage, I18nManager } from 'react-native';
+import Expo from 'expo';
+import React, { Component } from 'react';
+import {
+    View,
+    StyleSheet,
+    ActivityIndicator,
+    I18nManager as RNI18nManager,
+} from 'react-native';
 
+import i18n from './src/services/i18n';
 import Navigator from './src/navigation/Navigator';
 
-export default class App extends React.Component {
+export default class App extends Component {
     state = {
-        lists: ['To-do', 'Groceries', 'Learning', 'Reading'],
-        activeList: 'To-do',
+        isI18nInitialized: false,
+        lists: ['to-do', 'groceries', 'learning', 'reading'],
     }
 
     componentDidMount() {
-        // AsyncStorage.removeItem('To-do');
-        I18nManager.forceRTL(false);
+        i18n.init()
+            .then(() => {
+                const RNDir = RNI18nManager.isRTL ? 'RTL' : 'LTR';
+
+                // RN doesn't always correctly identify native
+                // locale directionality, so we force it here.
+                if (i18n.dir !== RNDir) {
+                    RNI18nManager.forceRTL(i18n.isLocaleRTL);
+
+                    // RN won't set the layout direction if we
+                    // don't restart the app's JavaScript.
+                    Expo.Updates.reloadFromCache();
+                }
+
+                this.setState({ isI18nInitialized: true });
+            })
+            .catch((error) => console.warn(error));
     }
 
-    // componentDidMount() {
-    //     setTimeout(() => {
-    //         this.setState({ lists: [...this.state.lists, 'Learning'] });
-    //     }, 5000);
-    // }
+    render() {
+        if (this.state.isI18nInitialized) {
+            return <Navigator lists={this.state.lists} />;
+        }
 
-    render() { return <Navigator lists={this.state.lists} />; }
+        return (
+            <View style={styles.loadingScreen}>
+                <ActivityIndicator />
+            </View>
+        );
+    }
 }
+
+const styles = StyleSheet.create({
+    loadingScreen: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
+});
