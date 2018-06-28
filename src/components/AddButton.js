@@ -9,8 +9,8 @@ class AddButton extends Component {
     render() {
         return (
             <TouchableOpacity
-                style={[styles.addButton, this.props.style]}
                 onPress={this.props.onPress}
+                style={[styles.addButton, this.props.style]}
             >
                 <Text style={styles.addButtonText}>+</Text>
             </TouchableOpacity>
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 25,
-        backgroundColor: '#ccc',
+        backgroundColor: Platform.OS === 'ios' ? '#0076FF' : '#2962FF',
         ...Platform.select({
             ios: {
                 shadowOpacity: 0.3,
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 
     addButtonText: {
         fontSize: 30,
-        color: '#444',
+        color: 'white',
         textAlign: 'center',
     },
 });

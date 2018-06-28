@@ -21,7 +21,7 @@ class ListScreen extends Component {
         super(props);
 
         this.state = {
-            todos: {},
+            todos: [],
             isLoading: true,
         };
 
@@ -74,10 +74,34 @@ class ListScreen extends Component {
         this.refreshTodos();
     }
 
+    deleteItem = async (item) => {
+        await ListRepo.deleteTodo(item);
+
+        this.refreshTodos();
+    }
+
     goToAddTodoScreen = () => {
         this.props.navigation.navigate('AddTodoScreen', {
             listName: this.props.navigation.state.routeName,
         });
+    }
+
+    renderContent() {
+        if (this.state.todos.length === 0) {
+            return (
+                <Text style={styles.emptyListText}>
+                    No to-dos in this list! Use the + button to add a to-do.
+                </Text>
+            );
+        }
+
+        return (
+            <ListOfTodos
+                todos={this.state.todos}
+                onItemUpdate={this.updateItem}
+                onItemDelete={this.deleteItem}
+            />
+        );
     }
 
     render() {
@@ -87,10 +111,7 @@ class ListScreen extends Component {
                     ?
                     <ActivityIndicator />
                     :
-                    <ListOfTodos
-                        todos={this.state.todos}
-                        onItemUpdate={this.updateItem}
-                    />
+                    this.renderContent()
                 }
 
                 <AddButton
@@ -107,6 +128,11 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+
+    emptyListText: {
+        marginHorizontal: 30,
+        fontSize: 16,
     },
 
     addButton: {

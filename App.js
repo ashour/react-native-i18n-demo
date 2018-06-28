@@ -5,7 +5,7 @@ import Navigator from './src/navigation/Navigator';
 
 export default class App extends React.Component {
     state = {
-        lists: ['To-do', 'Foo'],
+        lists: ['To-do', 'Groceries', 'Learning', 'Reading'],
         activeList: 'To-do',
     }
 

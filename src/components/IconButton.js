@@ -5,18 +5,20 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 class IconButton extends Component {
     static defaultProps = {
         style: {},
+        color: '#333',
+        iconComponent: MaterialCommunityIcons,
     }
 
     render() {
         return (
             <TouchableOpacity
                 onPress={this.props.onPress}
-                style={[styles.checkbox, this.props.style]}
+                style={[styles.button, this.props.style]}
             >
-                <MaterialCommunityIcons
+                <this.props.iconComponent
                     size={24}
-                    color="#333"
                     name={this.props.icon}
+                    color={this.props.color}
                 />
             </TouchableOpacity>
         );

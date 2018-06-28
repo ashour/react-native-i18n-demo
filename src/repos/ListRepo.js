@@ -72,6 +72,18 @@ const ListRepo = {
         const newTodos = { ...todos, [todo.id]: todo };
 
         this.saveTodos(newTodos);
+    },
+
+    async deleteTodo(todo) {
+        guardAgainstUnspecifiedList();
+
+        const todos = await this.getTodos();
+
+        const newTodos = { ...todos };
+
+        delete newTodos[todo.id];
+
+        this.saveTodos(newTodos);
     }
 };
 

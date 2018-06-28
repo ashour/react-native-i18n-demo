@@ -9,7 +9,7 @@ class DatePicker extends Component {
                     mode="date"
                     locale="en_EG"
                     date={this.props.date}
-                    minimumDate={new Date()}
+                    minimumDate={this.props.minDate}
                     onDateChange={this.props.onDateChange}
                 />
             );

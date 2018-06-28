@@ -20,17 +20,31 @@ class AddTodoScreen extends Component {
     state = {
         text: '',
         due: new Date(),
+        hasChosenDueDate: false,
         isDatePickerOpen: false,
     }
 
     onChangeText = text => this.setState({ text })
 
-    openDatePicker = () => this.setState({ isDatePickerOpen: true })
+    onAddDatePressed = () => {
+        this.setState({
+            isDatePickerOpen: true,
+            hasChosenDueDate: true,
+        });
+    }
 
-    onDateChange = due => this.setState({ due })
+    onDateChange = due => {
+        if (due === null) {
+            this.setState({ isDatePickerOpen: false });
+        } else {
+            this.setState({ due });
+        }
+    }
 
     onSavePressed = async () => {
-        const { text, due } = this.state;
+        const { text, hasChosenDueDate } = this.state;
+
+        const due = hasChosenDueDate ? this.state.due : null;
 
         await ListRepo
             .with(this.props.navigation.state.params.listName)
@@ -47,6 +61,7 @@ class AddTodoScreen extends Component {
 
                     <View style={styles.textInputContainer}>
                         <TextInput
+                            numberOfLines={1}
                             returnKeyType="done"
                             style={styles.textInput}
                             value={this.state.text}
@@ -61,10 +76,11 @@ class AddTodoScreen extends Component {
                         ?
                         <DatePicker
                             date={this.state.due}
+                            minDate={new Date()}
                             onDateChange={this.onDateChange}
                         />
                         :
-                        <Button title="Add due date" onPress={this.openDatePicker} />
+                        <Button title="Add due date" onPress={this.onAddDatePressed} />
                     }
                 </View>
 

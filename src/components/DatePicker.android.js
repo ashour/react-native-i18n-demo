@@ -7,12 +7,16 @@ class DatePicker extends Component {
     }
 
     componentDidMount() {
-        DatePickerAndroid.open({ date: this.props.date })
+        const { date, minDate } = this.props;
+
+        DatePickerAndroid.open({ date, minDate })
             .then(({ action, year, month, day }) => {
                 if (action !== DatePickerAndroid.dismissedAction) {
                     this.setState({ hasSelectedDate: true });
 
                     this.props.onDateChange(new Date(year, month, day));
+                } else {
+                    this.props.onDateChange(null);
                 }
             })
             .catch(({ message }) =>
