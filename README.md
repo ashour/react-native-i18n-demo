@@ -4,7 +4,7 @@ toolkit.
 
 You can see the app running on your phone by using the
 [Expo Client App](https://expo.io/tools#client). Once you
-have the app, visit
+have the Client, visit
 [https://expo.io/@mashour/react-native-i18n-demo](https://expo.io/@mashour/react-native-i18n-demo)
 and use the QR Code for Android or "Request a Link" for iOS
 to get the app running in your Expo Client.
