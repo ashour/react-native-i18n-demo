@@ -10,5 +10,12 @@
     },
     "ListScreen": {
         "empty": "No to-dos in this list! Use the + button to add a to-do."
+    },
+    "AddTodoScreen": {
+        "title": "New To-do",
+        "todoLabel": "What are you planning?",
+        "dueDateLabel": "Due date",
+        "addDueDateButton": "Add due date",
+        "saveButton": "Save"
     }
 }

@@ -24,7 +24,9 @@ export default class App extends Component {
                 // RN doesn't always correctly identify native
                 // locale directionality, so we force it here.
                 if (i18n.dir !== RNDir) {
-                    RNI18nManager.forceRTL(i18n.isLocaleRTL);
+                    const isLocaleRTL = i18n.dir === 'RTL';
+
+                    RNI18nManager.forceRTL(isLocaleRTL);
 
                     // RN won't set the layout direction if we
                     // don't restart the app's JavaScript.

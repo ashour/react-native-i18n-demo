@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Swipeable from 'react-native-swipeable';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Text, View, StyleSheet, FlatList, Platform } from 'react-native';
 
 import Checkbox from './Checkbox';
+import i18n from '../services/i18n';
 import IconButton from './IconButton';
 
 class ListOfTodos extends Component {
@@ -21,29 +21,20 @@ class ListOfTodos extends Component {
     }
 
     renderRow = ({ item }) => {
-        const rightButtons = [
-            <IconButton
-                color="white"
-                icon="trash-2"
-                iconComponent={Feather}
-                style={styles.rowButton}
-                onPress={() => this.props.onItemDelete(item)}
-            />,
-        ];
-
         return (
-            <Swipeable
-                style={styles.row}
-                rightButtons={rightButtons}
-                contentContainerStyle={styles.rowInner}
-            >
+            <View style={styles.row}>
                 <Checkbox
                     style={styles.checkox}
                     checked={item.isComplete}
                     onToggle={() => this.toggleComplete(item)}
                 />
 
-                <Text style={styles.text}>{item.text}</Text>
+                <Text
+                    numberOfLines={1}
+                    style={styles.text}
+                >
+                    {item.text}
+                </Text>
 
                 <View style={styles.dueDateContainer}>
                     {!!item.due &&
@@ -60,7 +51,15 @@ class ListOfTodos extends Component {
                         </View>
                     }
                 </View>
-            </Swipeable>
+
+                <IconButton
+                    icon="trash-2"
+                    iconComponent={Feather}
+                    style={styles.rowButton}
+                    onPress={() => this.props.onItemDelete(item)}
+                    color={Platform.OS === 'ios' ? '#FF3824' : '#F44336'}
+                />
+            </View>
         );
     }
 
@@ -81,41 +80,33 @@ const styles = StyleSheet.create({
     },
 
     row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 8,
+        paddingHorizontal: 20,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
     },
 
-    rowInner: {
-        flexDirection: 'row',
-        // alignItems: 'center',
-        paddingTop: 6,
-        paddingBottom: 18,
-        paddingHorizontal: 20,
-    },
-
     checkox: {
         width: 40,
-        // borderColor: 'red',
-        // borderWidth: 1,
     },
 
     rowButton: {
-        flex: 1,
-        width: 80,
-        backgroundColor: Platform.OS === 'ios' ? '#FF3824' : '#F44336',
+        borderColor: 'orange',
+        borderWidth: 1,
     },
 
     text: {
         flex: 1,
         fontSize: 18,
         color: '#333',
-        paddingTop: 8,
+        textAlign: 'left',
     },
 
     dueDateContainer: {
         width: 80,
         height: 30,
-        paddingTop: 10,
     },
 
     dueDateInner: {

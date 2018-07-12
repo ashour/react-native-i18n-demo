@@ -6,16 +6,16 @@ import {
     Platform,
     TextInput,
     StyleSheet,
-    AsyncStorage,
 } from 'react-native';
 
-import DatePicker from '../components/DatePicker';
+import i18n, { t } from '../services/i18n';
 import ListRepo from '../repos/ListRepo';
+import DatePicker from '../components/DatePicker';
 
 class AddTodoScreen extends Component {
-    static navigationOptions = {
-        title: "New To-do",
-    }
+    static navigationOptions = () => ({
+        title: t("AddTodoScreen:title"),
+    })
 
     state = {
         text: '',
@@ -57,7 +57,9 @@ class AddTodoScreen extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.form}>
-                    <Text style={styles.label}>What are you planning?</Text>
+                    <Text style={styles.label}>
+                        {t("AddTodoScreen:todoLabel")}
+                    </Text>
 
                     <View style={styles.textInputContainer}>
                         <TextInput
@@ -70,7 +72,9 @@ class AddTodoScreen extends Component {
                         />
                     </View>
 
-                    <Text style={styles.label}>Due date</Text>
+                    <Text style={styles.label}>
+                        {t("AddTodoScreen:dueDateLabel")}
+                    </Text>
 
                     {this.state.isDatePickerOpen
                         ?
@@ -80,11 +84,17 @@ class AddTodoScreen extends Component {
                             onDateChange={this.onDateChange}
                         />
                         :
-                        <Button title="Add due date" onPress={this.onAddDatePressed} />
+                        <Button
+                            title={t("AddTodoScreen:addDueDateButton")}
+                            onPress={this.onAddDatePressed}
+                        />
                     }
                 </View>
 
-                <Button title="Save" onPress={this.onSavePressed} />
+                <Button
+                    title={t("AddTodoScreen:saveButton")}
+                    onPress={this.onSavePressed}
+                />
             </View>
         );
     }
@@ -106,6 +116,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#333',
         marginBottom: 8,
+        textAlign: 'left',
     },
 
     textInputContainer: {
@@ -132,6 +143,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8,
         color: '#333',
         backgroundColor: 'white',
+        textAlign: i18n.isRTL ? 'right' : 'left',
     },
 });
 

@@ -41,8 +41,6 @@ class ListScreen extends Component {
     async loadTodosWithIndicator() {
         this.setState({ isLoading: true });
 
-        const listName = this.props.navigation.state.routeName;
-
         const todos = await this.getKeyedTodosArray();
 
         this.setState({ todos, isLoading: false });

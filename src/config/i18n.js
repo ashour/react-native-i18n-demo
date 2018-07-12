@@ -15,4 +15,9 @@ export const supportedLocales = {
 
 export const defaultNamespace = "common";
 
-export const namespaces = ["common", "lists", "ListScreen"];
+export const namespaces = [
+    "common",
+    "lists",
+    "ListScreen",
+    "AddTodoScreen",
+];

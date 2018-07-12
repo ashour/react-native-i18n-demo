@@ -10,5 +10,12 @@
     },
     "ListScreen": {
         "empty": "لا توجد مهام بهذه القائمة. استعمل زر + لإضافة مهمة."
+    },
+    "AddTodoScreen": {
+        "title": "مهمة جديدة",
+        "todoLabel": "ماذا تخطط؟",
+        "dueDateLabel": "تاريخ الاستحقاق",
+        "addDueDateButton": "إضافة تاريخ الاستحقاق",
+        "saveButton": "حفظ"
     }
 }

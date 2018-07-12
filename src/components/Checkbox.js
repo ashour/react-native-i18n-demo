@@ -15,6 +15,7 @@ class Checkbox extends Component {
     render() {
         return (
             <IconButton
+                flipForRTL={false}
                 style={this.props.style}
                 icon={this.getStatusIcon()}
                 onPress={this.props.onToggle}
