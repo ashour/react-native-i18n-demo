@@ -1,11 +1,11 @@
 import i18next from 'i18next';
 import { I18nManager as RNI18nManager } from 'react-native';
 
-import * as config from '../config/i18n';
+import * as config from '../../config/i18n';
 
-import date from './util/date';
-import languageDetector from './util/language-detector';
-import translationLoader from './util/translation-loader';
+import date from './date';
+import languageDetector from './language-detector';
+import translationLoader from './translation-loader';
 
 const i18n = {
     init: () => {
