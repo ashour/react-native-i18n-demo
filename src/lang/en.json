@@ -11,11 +11,17 @@
     "ListScreen": {
         "empty": "No to-dos in this list! Use the + button to add a to-do."
     },
+    "ListOfTodos": {
+        "dueDate": "{{date, DD MMM}}"
+    },
     "AddTodoScreen": {
         "title": "New To-do",
         "todoLabel": "What are you planning?",
         "dueDateLabel": "Due date",
         "addDueDateButton": "Add due date",
         "saveButton": "Save"
+    },
+    "DatePickerAndroid": {
+        "dueDate": "{{date, DD MMM YYYY}}"
     }
 }

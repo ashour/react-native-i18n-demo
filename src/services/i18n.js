@@ -2,6 +2,8 @@ import i18next from 'i18next';
 import { I18nManager as RNI18nManager } from 'react-native';
 
 import * as config from '../config/i18n';
+
+import date from './util/date';
 import languageDetector from './util/language-detector';
 import translationLoader from './util/translation-loader';
 
@@ -15,15 +17,24 @@ const i18n = {
                     fallbackLng: config.fallback,
                     ns: config.namespaces,
                     defaultNS: config.defaultNamespace,
+                    interpolation: {
+                        format(value, format) {
+                            if (value instanceof Date) {
+                                return date.format(value, format);
+                            }
+                        }
+                    },
                 }, (error) => {
                     if (error) { return reject(error); }
 
-                    return resolve();
+                    date.init(i18next.language)
+                        .then(() => resolve())
+                        .catch(error => reject(error));
                 });
         });
     },
 
-    t: (key) => i18next.t(key),
+    t: (key, options) => i18next.t(key, options),
 
     get locale() { return i18next.language; },
 

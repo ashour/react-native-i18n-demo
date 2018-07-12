@@ -19,7 +19,7 @@ const ListRepo = {
     },
 
     /**
-     * @returns {Object<string, {id: string, text: string, isComplete: boolean due: Date}>}
+     * @returns {Object<string, {id: string, text: string, isComplete: boolean due: String}>}
      */
     async getTodos() {
         guardAgainstUnspecifiedList();

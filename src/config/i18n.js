@@ -4,12 +4,16 @@ export const supportedLocales = {
     en: {
         name: "English",
         dir: "LTR",
-        translationFile: require('../lang/en.json'),
+        translationFileLoader: () => require('../lang/en.json'),
+
+        // en is default locale in Moment
+        momentLocaleLoader: () => Promise.resolve(),
     },
     ar: {
         name: "عربي",
         dir: "RTL",
-        translationFile: require('../lang/ar.json'),
+        translationFileLoader: () => require('../lang/ar.json'),
+        momentLocaleLoader: () => import('moment/locale/ar'),
     },
 };
 
@@ -19,5 +23,7 @@ export const namespaces = [
     "common",
     "lists",
     "ListScreen",
+    "ListOfTodos",
     "AddTodoScreen",
+    "DatePickerAndroid",
 ];

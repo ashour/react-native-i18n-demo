@@ -3,21 +3,14 @@ import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Text, View, StyleSheet, FlatList, Platform } from 'react-native';
 
 import Checkbox from './Checkbox';
-import i18n from '../services/i18n';
 import IconButton from './IconButton';
+import i18n, { t } from '../services/i18n';
 
 class ListOfTodos extends Component {
     toggleComplete(item) {
         const newItem = {...item, isComplete: !item.isComplete };
 
         this.props.onItemUpdate(newItem);
-    }
-
-    formatDate(dateString) {
-        return new Date(dateString).toLocaleDateString(
-            'en-CA',
-            { month: 'short', day: 'numeric' },
-        );
     }
 
     renderRow = ({ item }) => {
@@ -46,7 +39,7 @@ class ListOfTodos extends Component {
                             />
 
                             <Text style={styles.dueDateText}>
-                                {this.formatDate(item.due)}
+                                {t("ListOfTodos:dueDate", { date: new Date(item.due) })}
                             </Text>
                         </View>
                     }
@@ -55,7 +48,7 @@ class ListOfTodos extends Component {
                 <IconButton
                     icon="trash-2"
                     iconComponent={Feather}
-                    style={styles.rowButton}
+                    style={styles.deleteButton}
                     onPress={() => this.props.onItemDelete(item)}
                     color={Platform.OS === 'ios' ? '#FF3824' : '#F44336'}
                 />
@@ -82,19 +75,27 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: 8,
-        paddingHorizontal: 20,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
     },
 
     checkox: {
         width: 40,
     },
 
-    rowButton: {
-        borderColor: 'orange',
-        borderWidth: 1,
+    deleteButton: {
+        ...i18n.select({
+            ltr: {
+                paddingLeft: 1,
+                marginBottom: 4,
+            },
+            rtl: {
+                paddingRight: 2,
+                marginBottom: 6,
+            },
+        }),
     },
 
     text: {

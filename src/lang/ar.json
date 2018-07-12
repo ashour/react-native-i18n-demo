@@ -11,11 +11,17 @@
     "ListScreen": {
         "empty": "لا توجد مهام بهذه القائمة. استعمل زر + لإضافة مهمة."
     },
+    "ListOfTodos": {
+        "dueDate": "{{date, DD MMM}}"
+    },
     "AddTodoScreen": {
         "title": "مهمة جديدة",
         "todoLabel": "ماذا تخطط؟",
         "dueDateLabel": "تاريخ الاستحقاق",
         "addDueDateButton": "إضافة تاريخ الاستحقاق",
         "saveButton": "حفظ"
+    },
+    "DatePickerAndroid": {
+        "dueDate": "{{date, DD MMM YYYY}}"
     }
 }
