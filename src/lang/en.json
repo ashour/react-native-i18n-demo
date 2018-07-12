@@ -12,7 +12,8 @@
         "empty": "No to-dos in this list! Use the + button to add a to-do."
     },
     "ListOfTodos": {
-        "dueDate": "{{date, DD MMM}}"
+        "dueDateShort": "{{date, DD MMM}}",
+        "dueDateFull": "{{date, DD/MM/YYYY}}"
     },
     "AddTodoScreen": {
         "title": "New To-do",

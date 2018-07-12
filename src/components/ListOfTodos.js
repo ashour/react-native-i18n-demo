@@ -39,7 +39,7 @@ class ListOfTodos extends Component {
                             />
 
                             <Text style={styles.dueDateText}>
-                                {t("ListOfTodos:dueDate", { date: new Date(item.due) })}
+                                {formatDate(new Date(item.due))}
                             </Text>
                         </View>
                     }
@@ -65,6 +65,18 @@ class ListOfTodos extends Component {
             />
         );
     }
+}
+
+/**
+ * @param {Date} date
+ * @returns {String}
+ */
+function formatDate(date) {
+    if (date.getYear() === new Date().getYear()) {
+        return t("ListOfTodos:dueDateShort", { date });
+    }
+
+    return t("ListOfTodos:dueDateFull", { date });
 }
 
 const styles = StyleSheet.create({

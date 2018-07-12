@@ -18,6 +18,7 @@ const i18n = {
                     ns: config.namespaces,
                     defaultNS: config.defaultNamespace,
                     interpolation: {
+                        escapeValue: false,
                         format(value, format) {
                             if (value instanceof Date) {
                                 return date.format(value, format);

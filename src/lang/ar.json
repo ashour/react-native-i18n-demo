@@ -12,7 +12,8 @@
         "empty": "لا توجد مهام بهذه القائمة. استعمل زر + لإضافة مهمة."
     },
     "ListOfTodos": {
-        "dueDate": "{{date, DD MMM}}"
+        "dueDateShort": "{{date, DD MMM}}",
+        "dueDateFull": "{{date, DD/MM/YYYY}}"
     },
     "AddTodoScreen": {
         "title": "مهمة جديدة",
