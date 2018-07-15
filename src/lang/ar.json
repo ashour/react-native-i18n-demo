@@ -18,6 +18,7 @@
     "AddTodoScreen": {
         "title": "مهمة جديدة",
         "todoLabel": "ماذا تخطط؟",
+        "todoPlaceholder": "اشتري حليب",
         "dueDateLabel": "تاريخ الاستحقاق",
         "addDueDateButton": "إضافة تاريخ الاستحقاق",
         "saveButton": "حفظ"

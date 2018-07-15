@@ -18,6 +18,7 @@
     "AddTodoScreen": {
         "title": "New To-do",
         "todoLabel": "What are you planning?",
+        "todoPlaceholder": "Get milk",
         "dueDateLabel": "Due date",
         "addDueDateButton": "Add due date",
         "saveButton": "Save"

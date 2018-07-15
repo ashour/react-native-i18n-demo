@@ -1,5 +1,8 @@
+import {
+    createDrawerNavigator,
+    createStackNavigator,
+} from 'react-navigation';
 import React, { Component } from 'react';
-import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
 
 import { t } from '../services/i18n';
 import DrawerContent from './DrawerContent';
@@ -9,7 +12,10 @@ import AddTodoScreen from '../screens/AddTodoScreen';
 class Navigator extends Component {
     getListNavItems() {
         return this.props.lists.reduce((items, name) => {
-            const stackNavigator = createStackNavigator({ [name]: ListScreen, AddTodoScreen });
+            const stackNavigator = createStackNavigator({
+                [name]: ListScreen,
+                AddTodoScreen,
+            });
 
             stackNavigator.navigationOptions = ({ navigation }) => ({
                 title: t(`lists:${navigation.state.routeName}`),
@@ -20,9 +26,10 @@ class Navigator extends Component {
     }
 
     render() {
-        const RootNavigator = createDrawerNavigator(this.getListNavItems(), {
-            contentComponent: DrawerContent,
-        });
+        const RootNavigator = createDrawerNavigator(
+            this.getListNavItems(),
+            { contentComponent: DrawerContent },
+        );
 
         return <RootNavigator />;
     }

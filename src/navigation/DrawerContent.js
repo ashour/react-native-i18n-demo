@@ -4,26 +4,19 @@ import { SafeAreaView, DrawerItems } from 'react-navigation';
 
 import { t } from '../services/i18n';
 
-class DrawerContent extends Component {
-    onItemPress = ({ route }) => {
-        this.props.navigation.navigate(route.key);
-    }
+const DrawerContent = (props) => (
+    <ScrollView>
+        <SafeAreaView
+            style={styles.container}
+            forceInset={{ top: 'always', horizontal: 'never' }}
+        >
+            <Text style={styles.header}>{t('lists')}</Text>
 
-    render() {
-        return (
-            <ScrollView>
-                <SafeAreaView
-                    style={styles.container}
-                    forceInset={{ top: 'always', horizontal: 'never' }}
-                >
-                    <Text style={styles.header}>{t('lists')}</Text>
+            <DrawerItems {...props} />
+        </SafeAreaView>
+    </ScrollView>
+);
 
-                    <DrawerItems {...this.props} onItemPress={this.onItemPress} />
-                </SafeAreaView>
-            </ScrollView>
-        );
-    }
-}
 
 const styles = StyleSheet.create({
     container: {

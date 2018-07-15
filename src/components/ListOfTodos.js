@@ -17,7 +17,7 @@ class ListOfTodos extends Component {
         return (
             <View style={styles.row}>
                 <Checkbox
-                    style={styles.checkox}
+                    style={styles.checkbox}
                     checked={item.isComplete}
                     onToggle={() => this.toggleComplete(item)}
                 />
@@ -39,7 +39,7 @@ class ListOfTodos extends Component {
                             />
 
                             <Text style={styles.dueDateText}>
-                                {formatDate(new Date(item.due))}
+                                {formatDate(item.due)}
                             </Text>
                         </View>
                     }
@@ -47,6 +47,7 @@ class ListOfTodos extends Component {
 
                 <IconButton
                     icon="trash-2"
+                    flipForRTL={false}
                     iconComponent={Feather}
                     style={styles.deleteButton}
                     onPress={() => this.props.onItemDelete(item)}
@@ -86,27 +87,26 @@ const styles = StyleSheet.create({
 
     row: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
         paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingStart: 20,
+        paddingEnd: 10,
     },
 
-    checkox: {
+    checkbox: {
         width: 40,
+        ...i18n.select({
+            rtl: { marginBottom: 4 },
+        }),
     },
 
     deleteButton: {
         ...i18n.select({
-            ltr: {
-                paddingLeft: 1,
-                marginBottom: 4,
-            },
-            rtl: {
-                paddingRight: 2,
-                marginBottom: 6,
-            },
+            ltr: { marginBottom: 4 },
+            rtl: { marginBottom: 6 },
         }),
     },
 

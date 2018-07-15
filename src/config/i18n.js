@@ -3,7 +3,6 @@ export const fallback = "en";
 export const supportedLocales = {
     en: {
         name: "English",
-        dir: "LTR",
         translationFileLoader: () => require('../lang/en.json'),
 
         // en is default locale in Moment
@@ -11,7 +10,6 @@ export const supportedLocales = {
     },
     ar: {
         name: "عربي",
-        dir: "RTL",
         translationFileLoader: () => require('../lang/ar.json'),
         momentLocaleLoader: () => import('moment/locale/ar'),
     },

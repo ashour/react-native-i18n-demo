@@ -28,14 +28,18 @@ class ListScreen extends Component {
             isLoading: true,
         };
 
-        this.didFocusSubscription = props.navigation.addListener(
+        const listName = props.navigation.state.routeName;
+
+        this.repo = new ListRepo(listName);
+
+        this.willFocusSubscription = props.navigation.addListener(
             'willFocus',
             () => this.loadTodosWithIndicator(),
         );
     }
 
     componentWillUnmount() {
-        this.didFocusSubscription.remove();
+        this.willFocusSubscription.remove();
     }
 
     async loadTodosWithIndicator() {
@@ -47,10 +51,8 @@ class ListScreen extends Component {
     }
 
     async getKeyedTodosArray() {
-        const listName = this.props.navigation.state.routeName;
-
         return this.transformToKeyedArray(
-            await ListRepo.with(listName).getTodos()
+            await this.repo.getTodos()
         );
     }
 
@@ -70,13 +72,13 @@ class ListScreen extends Component {
     }
 
     updateItem = async (item) => {
-        await ListRepo.updateTodo(item);
+        await this.repo.updateTodo(item);
 
         this.refreshTodos();
     }
 
     deleteItem = async (item) => {
-        await ListRepo.deleteTodo(item);
+        await this.repo.deleteTodo(item);
 
         this.refreshTodos();
     }
@@ -132,8 +134,8 @@ const styles = StyleSheet.create({
     },
 
     emptyListText: {
-        marginHorizontal: 30,
         fontSize: 16,
+        marginHorizontal: 30,
     },
 
     addButton: {

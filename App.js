@@ -22,7 +22,7 @@ export default class App extends Component {
                 const RNDir = RNI18nManager.isRTL ? 'RTL' : 'LTR';
 
                 // RN doesn't always correctly identify native
-                // locale directionality, so we force it here.
+                // locale direction, so we force it here.
                 if (i18n.dir !== RNDir) {
                     const isLocaleRTL = i18n.dir === 'RTL';
 

@@ -1,5 +1,10 @@
+import {
+    Text,
+    Platform,
+    StyleSheet,
+    TouchableOpacity,
+} from 'react-native';
 import React, { Component } from 'react';
-import { Text, Platform, TouchableOpacity, StyleSheet } from 'react-native';
 
 import i18n from '../services/i18n';
 

@@ -8,8 +8,8 @@ import {
     StyleSheet,
 } from 'react-native';
 
-import i18n, { t } from '../services/i18n';
 import ListRepo from '../repos/ListRepo';
+import i18n, { t } from '../services/i18n';
 import DatePicker from '../components/DatePicker';
 
 class AddTodoScreen extends Component {
@@ -69,6 +69,8 @@ class AddTodoScreen extends Component {
                             value={this.state.text}
                             onChangeText={this.onChangeText}
                             underlineColorAndroid="transparent"
+                            placeholder=
+                                {t("AddTodoScreen:todoPlaceholder")}
                         />
                     </View>
 

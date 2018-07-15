@@ -2,41 +2,47 @@ import { AsyncStorage } from 'react-native';
 
 import uuid from '../util/uuid';
 
-/**
- * @var {string}
- */
-let currentList = '';
+class ListRepo {
+    list = ''
 
-const ListRepo = {
     /**
      * @param {string} list
-     * @returns this
+     * @returns {ListRepo}
      */
-    with(list) {
-        currentList = list;
+    static with(list) {
+        return new ListRepo(list);
+    }
 
-        return this;
-    },
+    /**
+     * @param {string} list
+     */
+    constructor(list) {
+        this.list = list;
+    }
 
     /**
      * @returns {Object<string, {id: string, text: string, isComplete: boolean due: String}>}
      */
     async getTodos() {
-        guardAgainstUnspecifiedList();
+        this.guardAgainstUnspecifiedList();
 
-        const todosJSONString = await AsyncStorage.getItem(currentList);
+        const todosJSONString = await AsyncStorage.getItem(this.list);
 
-        return todosJSONString === null ? {} : JSON.parse(todosJSONString);
-    },
+        if (todosJSONString === null) return {};
+
+        const parsed = JSON.parse(todosJSONString);
+
+        return transformDueDateStringsToDateObjects(parsed);
+    }
 
     /**
      * @param {Object<string, {id: string, text: string, isComplete: boolean due: Date}>} newTodos
      */
     async saveTodos(newTodos) {
-        guardAgainstUnspecifiedList();
+        this.guardAgainstUnspecifiedList();
 
-        await AsyncStorage.setItem(currentList, JSON.stringify(newTodos));
-    },
+        await AsyncStorage.setItem(this.list, JSON.stringify(newTodos));
+    }
 
     /**
      * @param {Object} todo
@@ -44,7 +50,7 @@ const ListRepo = {
      * @param {Date} todo.due
      */
     async addTodo(todo) {
-        guardAgainstUnspecifiedList();
+        this.guardAgainstUnspecifiedList();
 
         const todos = await this.getTodos();
 
@@ -56,26 +62,31 @@ const ListRepo = {
         };
 
         this.saveTodos(newTodos);
-    },
+    }
 
     /**
      * @param {Object} todo
+     * @param {string} todo.id
      * @param {string} todo.text
      * @param {Date} todo.due
      * @param {boolean} todo.isComplete
      */
     async updateTodo(todo) {
-        guardAgainstUnspecifiedList();
+        this.guardAgainstUnspecifiedList();
 
         const todos = await this.getTodos();
 
         const newTodos = { ...todos, [todo.id]: todo };
 
         this.saveTodos(newTodos);
-    },
+    }
 
+    /**
+     * @param {Object} todo
+     * @param {string} todo.id
+     */
     async deleteTodo(todo) {
-        guardAgainstUnspecifiedList();
+        this.guardAgainstUnspecifiedList();
 
         const todos = await this.getTodos();
 
@@ -85,12 +96,27 @@ const ListRepo = {
 
         this.saveTodos(newTodos);
     }
-};
 
-const guardAgainstUnspecifiedList = () => {
-    if (!currentList) {
-        throw new Error('A list must be specified with `with()` before operating on its to-dos.');
+    guardAgainstUnspecifiedList() {
+        if (!this.list) {
+            throw new Error('A list must be specified ' +
+                'before operating on its to-dos.');
+        }
     }
 };
+
+/**
+ * @param {Object<string, {id: string, text: string, isComplete: boolean due: String}>} list
+ * @returns {Object<string, {id: string, text: string, isComplete: boolean due: Date}>}
+ */
+function transformDueDateStringsToDateObjects(list) {
+    return Object.keys(list).reduce((transforming, id) => {
+        const todo = { ...list[id] };
+
+        if (todo.due) { todo.due = new Date(todo.due); }
+
+        return { ...transforming, [id]: todo };
+    }, {});
+}
 
 export default ListRepo;
