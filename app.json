@@ -4,8 +4,11 @@
     "description": "A working demo of an internationalized React Native to-do app. Switch your device's language to Arabic or English to see localized version.",
     "slug": "react-native-i18n-demo",
     "privacy": "public",
-    "sdkVersion": "28.0.0",
-    "platforms": ["ios", "android"],
+    "sdkVersion": "32.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

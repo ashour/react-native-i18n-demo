@@ -1,19 +1,16 @@
-import Expo from 'expo';
+import Expo, { Localization } from 'expo';
 
 const languageDetector = {
     type: 'languageDetector',
     async: true,
     detect: (callback) => {
-        return Expo.DangerZone.Localization
-            .getCurrentLocaleAsync()
-
-            // We will get back a string like "en_US". We
-            // return a string like "en" to match our language
-            // files.
-            .then((lng) => { callback(lng.split('_')[0]); })
+        // We will get back a string like "en-US". We
+        // return a string like "en" to match our language
+        // files.
+        callback(Localization.locale.split('-')[0]);
     },
-    init: () => {},
-    cacheUserLanguage: () => {},
+    init: () => { },
+    cacheUserLanguage: () => { },
 };
 
 export default languageDetector;

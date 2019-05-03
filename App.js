@@ -1,4 +1,4 @@
-import Expo from 'expo';
+import { Updates } from 'expo';
 import React, { Component } from 'react';
 import {
     View,
@@ -6,15 +6,15 @@ import {
     ActivityIndicator,
     I18nManager as RNI18nManager,
 } from 'react-native';
+import { createAppContainer } from 'react-navigation';
 
 import i18n from './src/services/i18n';
-import Navigator from './src/navigation/Navigator';
+import AppNavigator from './src/navigation/AppNavigator';
+
+const AppNavigatorContainer = createAppContainer(AppNavigator);
 
 export default class App extends Component {
-    state = {
-        isI18nInitialized: false,
-        lists: ['to-do', 'groceries', 'learning', 'reading'],
-    }
+    state = { isI18nInitialized: false }
 
     componentDidMount() {
         i18n.init()
@@ -30,7 +30,7 @@ export default class App extends Component {
 
                     // RN won't set the layout direction if we
                     // don't restart the app's JavaScript.
-                    Expo.Updates.reloadFromCache();
+                    Updates.reloadFromCache();
                 }
 
                 this.setState({ isI18nInitialized: true });
@@ -40,7 +40,7 @@ export default class App extends Component {
 
     render() {
         if (this.state.isI18nInitialized) {
-            return <Navigator lists={this.state.lists} />;
+            return <AppNavigatorContainer />;
         }
 
         return (
