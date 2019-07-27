@@ -10,9 +10,10 @@ const date = {
      * @return Promise
      */
     init(locale) {
+        const language = config.supportedLocales[locale] ? locale : config.fallback;
         return new Promise((resolve, reject) => {
             config
-                .supportedLocales[locale]
+                .supportedLocales[language]
                 .momentLocaleLoader()
                 .then(() => {
                     moment.locale(locale);
