@@ -18,6 +18,7 @@
         "react-navigation-stack": "^1.10.2"
     },
     "devDependencies": {
+        "@babel/core": "^7.0.0-0",
         "@babel/plugin-transform-runtime": "^7.4.4"
     }
 }
