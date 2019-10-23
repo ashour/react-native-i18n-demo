@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, StyleSheet } from 'react-native';
-import { SafeAreaView, DrawerItems } from 'react-navigation';
+import { SafeAreaView } from 'react-navigation';
+import { DrawerItems } from 'react-navigation-drawer';
 
 import { t } from '../services/i18n';
 

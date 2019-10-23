@@ -1,8 +1,6 @@
-import {
-    createStackNavigator,
-    createDrawerNavigator,
-} from 'react-navigation';
 import React, { Component } from 'react';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 
 import lists from '../config/lists';
 import i18n, { t } from '../services/i18n';
