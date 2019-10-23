@@ -1,4 +1,3 @@
-import Expo from 'expo';
 import * as Localization from 'expo-localization';
 
 const languageDetector = {
