@@ -1,4 +1,5 @@
-import Expo, { Localization } from 'expo';
+import Expo from 'expo';
+import * as Localization from 'expo-localization';
 
 const languageDetector = {
     type: 'languageDetector',
