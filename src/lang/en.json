@@ -3,6 +3,7 @@
         "lists": "Lists"
     },
     "lists": {
+        "list": "List",
         "to-do": "To-do",
         "groceries": "Groceries",
         "learning": "Learning",
