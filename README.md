@@ -1,3 +1,7 @@
+**⚠️ This repo is no longer maintained! Please visit https://github.com/PhraseApp-Blog/react-native-i18n-demo for the up-to-date repo.**
+
+---
+
 # React Native i18n Demo
 This is a working demo app built on React Native with the Expo
 toolkit.
